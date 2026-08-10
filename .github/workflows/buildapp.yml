@@ -117,7 +117,13 @@ jobs:
                 ls -la
 
                 ./build.sh sideload
-                ls -la packages
+                
+                # Modify the bundle ID of the built IPA
+                cd packages
+                BUILT_IPA=$(ls -t *.ipa | head -n1)
+                pyzule -i "$BUILT_IPA" -b "imaxuuu" -o "$BUILT_IPA"
+                
+                ls -la
                 
               env:
                 THEOS: ${{ github.workspace }}/theos
